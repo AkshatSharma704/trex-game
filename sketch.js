@@ -8,12 +8,12 @@ var cloudsGroup, cloudImage;
 var obstaclesGroup, obstacle1, obstacle2, obstacle3, obstacle4, obstacle5, obstacle6;
 
 var score = 0;
-var gameOver, Restart;
+var gameOver, restart;
 
 
 function preload(){
   trex_running = loadAnimation("trex1.png","trex3.png","trex4.png");
-  trex_collided = loadImage("trex_collided.png");
+  trex_collided = loadAnimation("trex_collided.png");
   
   groundImage = loadImage("ground2.png");
   
@@ -27,6 +27,9 @@ function preload(){
   obstacle6 = loadImage("obstacle6.png");
   gameOverImg = loadImage("gameOver.png");
   restartImg = loadImage("restart.png");
+  jumpSound = loadSound("jump.mp3");
+  dieSound = loadSound("die.mp3");
+  checkPointSound = loadSound("checkPoint.mp3");
 }
 
 function setup() {
@@ -154,7 +157,7 @@ function spawnClouds() {
 function spawnObstacles() {
   if(frameCount % 60 === 0) {
     var obstacle = createSprite(600,165,10,40);
-    obstacle.velocityX = -4;
+    obstacle.velocityX = -(6 + 3*score/100);
     
     //generate random obstacles
     var rand = Math.round(random(1,6));
